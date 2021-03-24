@@ -21,8 +21,6 @@ public class User {
   private String cardNumber;
   private String cardPassword;
   private BigDecimal saldo;
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-  private List<Transaction> transactions;
 
   @Deprecated
 
@@ -34,8 +32,17 @@ public class User {
     this.saldo = saldo;
   }
 
+  @Deprecated
   public User() {
     // deprecated
+  }
+
+  public User(String name, String adress, String cardNumber, String cardPassword, BigDecimal saldo) {
+    this.name = name;
+    this.adress = adress;
+    this.cardNumber = cardNumber;
+    this.cardPassword = cardPassword;
+    this.saldo = saldo;
   }
 
   public Long getId() {
@@ -76,14 +83,6 @@ public class User {
 
   public void setCardPassword(String cardPassword) {
     this.cardPassword = cardPassword;
-  }
-
-  public List<Transaction> getTransactions() {
-    return this.transactions;
-  }
-
-  public void setTransactions(List<Transaction> transactions) {
-    this.transactions = transactions;
   }
 
 }

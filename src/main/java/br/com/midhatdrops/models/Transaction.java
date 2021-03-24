@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class Transaction {
   private BigDecimal value;
   private LocalDateTime date;
   private String adress;
-  @ManyToOne()
+  @ManyToOne(fetch = FetchType.EAGER)
   private User user;
 
   @Deprecated
@@ -34,6 +35,14 @@ public class Transaction {
     this.adress = adress;
     this.user = user;
     this.date = LocalDateTime.now();
+  }
+
+  public User getUser() {
+    return this.user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Long getId() {

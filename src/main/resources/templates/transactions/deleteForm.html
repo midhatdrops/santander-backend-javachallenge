@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="~{head::head('Formulário de Delete')}"></head>
+  <body>
+    <div class="container mb-black text-white">
+      <form
+        class="form-group"
+        th:action="@{/transations/delete/${transaction.id}}"
+        method="POST"
+        th:object="${formDeleteTransaction}"
+      >
+        <label class="form-control" for="Adress">Adress</label>
+        <input
+          id="Adress"
+          class="form-control"
+          th:text="${transaction.adress}"
+          readonly
+        />
+        <label class="form-control" for="Date">Date</label>
+        <input
+          id="Date"
+          class="form-control"
+          th:text="${transaction.date}"
+          readonly
+        />
+        <label class="form-control" for="user">Usuario</label>
+        <input id="user" class="form-control" th:text="${user.name}" readonly />
+        <label class="form-control" for="Value">Value</label>
+        <input
+          id="Value"
+          class="form-control"
+          th:text="${transaction.value}"
+          readonly
+        />
+        <input type="hidden" th:field="*{id}" readonly />
+        <button type="submit" class="btn btn-danger">Excluir</button>
+      </form>
+    </div>
+  </body>
+</html>

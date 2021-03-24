@@ -3,6 +3,9 @@ package br.com.midhatdrops.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.UserRepository;
@@ -28,6 +31,8 @@ public class FormTransaction {
 
   public Transaction convert(UserRepository userRepository, Long id) {
     User user = userRepository.getOne(id);
+    // BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+    // String encode = bcrypt.encode(this.adress);
     Transaction transaction = new Transaction(this.value, this.adress, user);
     return transaction;
 
