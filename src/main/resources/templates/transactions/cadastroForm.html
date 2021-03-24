@@ -1,5 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head th:replace="~{head :: head('Cadastro de Transações')}"> </head>
-  <body></body>
+  <body class="container bg-dark text-white">
+    <div class="row">
+      <div class="col-12">
+        <form
+          th:object="${formTransaction}"
+          class="form-group d-flex flex-column align-items-center"
+          th:action="@{/transactions}"
+          method="post"
+        >
+          <label class="form-label" for="userId">Usuário</label>
+          <input
+            class="form-control"
+            id="userId"
+            th:field="*{userId}"
+            placeholder="Digite o id do usuário"
+          />
+          <label class="form-label" for="adress">Endereço</label>
+          <input
+            class="form-control"
+            id="adress"
+            th:field="*{adress}"
+            placeholder="Digite o endereço da transação"
+          />
+          <label class="form-label" for="adress">Valor</label>
+          <input
+            class="form-control"
+            id="adress"
+            th:field="*{value}"
+            placeholder="Digite o valor da transação"
+          />
+          <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

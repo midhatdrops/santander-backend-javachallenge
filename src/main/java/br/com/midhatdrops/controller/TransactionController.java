@@ -32,18 +32,15 @@ public class TransactionController {
   }
 
   @GetMapping("cadastro")
-  public ModelAndView cadastro() {
+  public ModelAndView cadastro(FormTransaction transaction) {
     return new ModelAndView("transactions/cadastroForm");
   }
 
   @PostMapping
-  public ModelAndView newTransaction(FormTransaction transaction) {
+  public String newTransaction(FormTransaction transaction) {
     Transaction newTransaction = transaction.convert(userRepository, transaction.getUserId());
     transactionsRepository.save(newTransaction);
-    List<Transaction> list = transactionsRepository.findAll();
-    ModelAndView mvc = new ModelAndView("transactions/home");
-    mvc.addObject("transactions", list);
-    return mvc;
+    return "redirect:/transactions";
   }
 
 }

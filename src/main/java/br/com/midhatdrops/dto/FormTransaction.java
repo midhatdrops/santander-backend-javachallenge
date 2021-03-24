@@ -48,4 +48,21 @@ public class FormTransaction {
   public String getAdress() {
     return this.adress;
   }
+
+  public void setDate(LocalDateTime date) {
+    this.date = date;
+  }
+
+  public void setValue(BigDecimal value) {
+    this.value = value;
+  }
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
+
+  public void setAdress(String adress) {
+    this.adress = adress;
+  }
+
 }
