@@ -64,7 +64,8 @@ public class TransactionController {
   }
 
   @GetMapping("/delete/{id}")
-  public ModelAndView deleteTransactionForm(@PathVariable(value = "id") Long id) {
+  public ModelAndView deleteTransactionForm(@PathVariable(value = "id") Long id,
+      DeleteTransactionForm deleteTransactionForm) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent()) {
       List<Transaction> list = transactionsRepository.findAll();
@@ -80,9 +81,10 @@ public class TransactionController {
     return mvc;
   }
 
-  @PostMapping("/delete/{id}")
-  public String deleteTransaction(@PathVariable(value = "id") Long id) {
-    transactionsRepository.deleteById(id);
+  @PostMapping("/delete")
+  public String deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws NotFoundException {
+    Transaction transaction = deleteTransactionForm.convert(transactionsRepository);
+    transactionsRepository.deleteById(transaction.getId());
     return "redirect:/transactions";
   }
 }
