@@ -1,5 +1,6 @@
 package br.com.midhatdrops.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,10 +20,20 @@ public class User {
   private String adress;
   private String cardNumber;
   private String cardPassword;
+  private BigDecimal saldo;
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private List<Transaction> transactions;
 
   @Deprecated
+
+  public BigDecimal getSaldo() {
+    return this.saldo;
+  }
+
+  public void setSaldo(BigDecimal saldo) {
+    this.saldo = saldo;
+  }
+
   public User() {
     // deprecated
   }

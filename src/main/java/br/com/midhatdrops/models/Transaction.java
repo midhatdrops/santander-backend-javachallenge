@@ -29,6 +29,13 @@ public class Transaction {
     // deprecated
   }
 
+  public Transaction(BigDecimal value, String adress, User user) {
+    this.value = value;
+    this.adress = adress;
+    this.user = user;
+    this.date = LocalDateTime.now();
+  }
+
   public Long getId() {
     return this.id;
   }
