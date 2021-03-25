@@ -3,9 +3,6 @@ package br.com.midhatdrops.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.UserRepository;

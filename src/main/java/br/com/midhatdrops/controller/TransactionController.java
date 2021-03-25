@@ -8,10 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.midhatdrops.dto.ChangeTransactionForm;
 import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.dto.FormTransaction;
 import br.com.midhatdrops.models.Transaction;
@@ -51,16 +52,31 @@ public class TransactionController {
     return REDIRECT_HOMEPAGE;
   }
 
-  @PutMapping("/{id}")
-  public String changeTransaction(FormTransaction transaction, @PathVariable(value = "id") Long id) {
-    Transaction newTransaction = transaction.convert(userRepository, id);
+  @GetMapping("/change/{id}")
+  public ModelAndView changeTransactionForm(ChangeTransactionForm transaction, @PathVariable(value = "id") Long id,
+      UserRepository userRepository) {
+    Optional<Transaction> optional = transactionsRepository.findById(id);
+    if (!optional.isPresent()) {
+      List<Transaction> list = transactionsRepository.findAll();
+      ModelAndView mvc = new ModelAndView("transactions/home");
+      mvc.addObject("transactions", list);
+      return mvc;
+    }
+    ModelAndView mvc = new ModelAndView("transactions/changeForm");
+    mvc.addObject("transaction", optional.get());
+    return mvc;
+  }
+
+  @PostMapping("/change")
+  public String changeTransaction(ChangeTransactionForm transaction, UserRepository userRepository)
+      throws NotFoundException {
+    Transaction newTransaction = transaction.convert(transactionsRepository);
     try {
       transactionsRepository.save(newTransaction);
       return REDIRECT_HOMEPAGE;
     } catch (Exception e) {
       return e.getMessage();
     }
-
   }
 
   @GetMapping("/delete/{id}")

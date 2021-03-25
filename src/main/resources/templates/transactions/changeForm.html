@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="~{head::head('Formulário de Alteração')}"></head>
+  <body
+    class="bg-dark text-white d-flex flex-column align-items-center justify-content-center"
+  >
+    <div class="container mt-5">
+      <form
+        class="form-group d-flex flex-column align-items-center"
+        th:action="@{/transactions/change}"
+        method="POST"
+        th:object="${changeTransactionForm}"
+      >
+        <label class="form-control" for="Adress">Adress</label>
+        <input
+          id="Adress"
+          class="form-control mb-3"
+          th:placeholder="${transaction.adress}"
+          th:field="*{adress}"
+        />
+        <label class="form-control" for="Value">Value</label>
+        <input
+          id="Value"
+          class="form-control mb-3"
+          th:placeholder="${transaction.value}"
+          th:field="*{value}"
+        />
+        <input
+          type="hidden"
+          th:value="${transaction.id}"
+          th:field="*{id}"
+          readonly
+        />
+        <button type="submit" class="btn btn-warning">Alterar</button>
+      </form>
+    </div>
+  </body>
+</html>

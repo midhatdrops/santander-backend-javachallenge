@@ -37,6 +37,14 @@ public class Transaction {
     this.date = LocalDateTime.now();
   }
 
+  public Transaction(Long id, BigDecimal value, LocalDateTime date, String adress, User user) {
+    this.id = id;
+    this.value = value;
+    this.date = date;
+    this.adress = adress;
+    this.user = user;
+  }
+
   public User getUser() {
     return this.user;
   }
