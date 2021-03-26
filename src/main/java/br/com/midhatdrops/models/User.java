@@ -1,14 +1,11 @@
 package br.com.midhatdrops.models;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -21,8 +18,6 @@ public class User {
   private String cardNumber;
   private String cardPassword;
   private BigDecimal saldo;
-
-  @Deprecated
 
   public BigDecimal getSaldo() {
     return this.saldo;

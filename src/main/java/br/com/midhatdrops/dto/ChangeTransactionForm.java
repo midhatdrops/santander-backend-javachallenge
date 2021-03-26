@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
@@ -12,6 +14,7 @@ import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 public class ChangeTransactionForm implements Form {
   private Long id;
   private BigDecimal value;
+  @DateTimeFormat()
   private LocalDateTime date;
   private String adress;
   private User user;
@@ -21,10 +24,11 @@ public class ChangeTransactionForm implements Form {
     // Spring Boot use
   }
 
-  public ChangeTransactionForm(Long id, BigDecimal value, String adress, User user) {
+  public ChangeTransactionForm(Long id, BigDecimal value, String adress, User user, LocalDateTime date) {
     this.id = id;
     this.value = value;
     this.adress = adress;
+    this.date = date;
     this.user = user;
   }
 
@@ -72,7 +76,7 @@ public class ChangeTransactionForm implements Form {
     Optional<Transaction> optional = transactionRepository.findById(this.getId());
     if (!optional.isPresent())
       throw new IdNotFoundException("Id not found!");
-    return new Transaction(this.id, this.value, this.date, this.adress, optional.get().getUser());
+    return new Transaction(this.id, this.value, optional.get().getDate(), this.adress, optional.get().getUser());
 
   }
 }

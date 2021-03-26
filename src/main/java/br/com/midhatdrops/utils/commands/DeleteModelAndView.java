@@ -14,7 +14,7 @@ public class DeleteModelAndView {
       TransactionsRepository transactionsRepository) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent())
-      new GenerateModelAndView().home(transactionsRepository);
+      new GenerateModelAndView().home(transactionsRepository, 0);
     User user = optional.get().getUser();
     ModelAndView mvc = new ModelAndView("transactions/deleteForm");
     mvc.addObject("transaction", optional.get());

@@ -13,7 +13,7 @@ public class ChangeModelAndView {
       TransactionsRepository transactionsRepository) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent()) {
-      return new GenerateModelAndView().home(transactionsRepository);
+      return new GenerateModelAndView().home(transactionsRepository, 0);
     }
     ModelAndView mvc = new ModelAndView("transactions/changeForm");
     mvc.addObject("transaction", optional.get());

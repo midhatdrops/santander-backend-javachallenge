@@ -2,7 +2,6 @@ package br.com.midhatdrops.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

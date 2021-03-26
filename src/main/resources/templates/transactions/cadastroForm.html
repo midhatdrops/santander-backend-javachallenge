@@ -16,21 +16,27 @@
             id="userId"
             th:field="*{userId}"
             placeholder="Digite o id do usuário"
+            th:errorclass="is-invalid"
           />
+          <div class="invalid-feedback" th:errors="*{userId}"></div>
           <label class="form-label" for="adress">Endereço</label>
           <input
             class="form-control"
             id="adress"
             th:field="*{adress}"
             placeholder="Digite o endereço da transação"
+            th:errorclass="is-invalid"
           />
+          <div class="invalid-feedback" th:errors="*{adress}"></div>
           <label class="form-label" for="adress">Valor</label>
           <input
             class="form-control"
             id="adress"
             th:field="*{value}"
             placeholder="Digite o valor da transação"
+            th:errorclass="is-invalid"
           />
+          <div class="invalid-feedback" th:errors="*{value}"></div>
           <button type="submit" class="btn btn-primary mt-2">Enviar</button>
         </form>
       </div>
