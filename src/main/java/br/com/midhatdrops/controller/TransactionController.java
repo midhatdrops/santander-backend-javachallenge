@@ -11,9 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.midhatdrops.dto.ChangeTransactionForm;
 import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.dto.FormTransaction;
-import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
 import br.com.midhatdrops.repository.UserRepository;
+import br.com.midhatdrops.service.DTOService;
 import br.com.midhatdrops.utils.commands.GenerateModelAndView;
 import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
@@ -25,6 +25,9 @@ public class TransactionController {
   private TransactionsRepository transactionsRepository;
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private DTOService dtoService;
 
   @GetMapping
   public ModelAndView home() {
@@ -38,8 +41,7 @@ public class TransactionController {
 
   @PostMapping
   public ModelAndView newTransaction(FormTransaction transaction) throws IdNotFoundException {
-    Transaction newTransaction = transaction.convert(userRepository, transaction.getUserId());
-    transactionsRepository.save(newTransaction);
+    dtoService.save(transaction, userRepository, transactionsRepository);
     return new GenerateModelAndView().home(transactionsRepository);
   }
 
@@ -51,8 +53,7 @@ public class TransactionController {
   @PostMapping("/change")
   public ModelAndView changeTransaction(ChangeTransactionForm transaction, UserRepository userRepository)
       throws IdNotFoundException {
-    Transaction newTransaction = transaction.convert(transactionsRepository);
-    transactionsRepository.save(newTransaction);
+    dtoService.change(transactionsRepository, transaction);
     return new GenerateModelAndView().home(transactionsRepository);
   }
 
@@ -65,8 +66,7 @@ public class TransactionController {
 
   @PostMapping("/delete")
   public ModelAndView deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws IdNotFoundException {
-    Transaction transaction = deleteTransactionForm.convert(transactionsRepository);
-    transactionsRepository.deleteById(transaction.getId());
+    dtoService.delete(deleteTransactionForm, transactionsRepository);
     return new GenerateModelAndView().home(transactionsRepository);
   }
 }
