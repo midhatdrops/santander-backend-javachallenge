@@ -13,8 +13,8 @@ public class GenerateModelAndView {
     return new HomeModelAndView().execute(transactionsRepository);
   }
 
-  public ModelAndView newTransaction(String uri, FormTransaction transaction) {
-    return new NewModelAndView().execute(uri, transaction);
+  public ModelAndView newTransaction(FormTransaction transaction) {
+    return new NewModelAndView().execute(transaction);
   }
 
   public ModelAndView changeTransaction(ChangeTransactionForm transaction, Long id,

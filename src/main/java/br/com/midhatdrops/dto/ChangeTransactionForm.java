@@ -7,9 +7,9 @@ import java.util.Optional;
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import javassist.NotFoundException;
+import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
-public class ChangeTransactionForm {
+public class ChangeTransactionForm implements Form {
   private Long id;
   private BigDecimal value;
   private LocalDateTime date;
@@ -68,10 +68,10 @@ public class ChangeTransactionForm {
     this.user = user;
   }
 
-  public Transaction convert(TransactionsRepository transactionRepository) throws NotFoundException {
+  public Transaction convert(TransactionsRepository transactionRepository) throws IdNotFoundException {
     Optional<Transaction> optional = transactionRepository.findById(this.getId());
     if (!optional.isPresent())
-      throw new NotFoundException("Id not found!");
+      throw new IdNotFoundException("Id not found!");
     return new Transaction(this.id, this.value, this.date, this.adress, optional.get().getUser());
 
   }

@@ -15,7 +15,7 @@ import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
 import br.com.midhatdrops.repository.UserRepository;
 import br.com.midhatdrops.utils.commands.GenerateModelAndView;
-import javassist.NotFoundException;
+import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
 @Controller
 @RequestMapping("transactions")
@@ -33,11 +33,11 @@ public class TransactionController {
 
   @GetMapping("cadastro")
   public ModelAndView cadastro(FormTransaction transaction) {
-    return new GenerateModelAndView().newTransaction("transactions/cadastroForm", transaction);
+    return new GenerateModelAndView().newTransaction(transaction);
   }
 
   @PostMapping
-  public ModelAndView newTransaction(FormTransaction transaction) {
+  public ModelAndView newTransaction(FormTransaction transaction) throws IdNotFoundException {
     Transaction newTransaction = transaction.convert(userRepository, transaction.getUserId());
     transactionsRepository.save(newTransaction);
     return new GenerateModelAndView().home(transactionsRepository);
@@ -50,7 +50,7 @@ public class TransactionController {
 
   @PostMapping("/change")
   public ModelAndView changeTransaction(ChangeTransactionForm transaction, UserRepository userRepository)
-      throws NotFoundException {
+      throws IdNotFoundException {
     Transaction newTransaction = transaction.convert(transactionsRepository);
     transactionsRepository.save(newTransaction);
     return new GenerateModelAndView().home(transactionsRepository);
@@ -64,7 +64,7 @@ public class TransactionController {
   }
 
   @PostMapping("/delete")
-  public ModelAndView deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws NotFoundException {
+  public ModelAndView deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws IdNotFoundException {
     Transaction transaction = deleteTransactionForm.convert(transactionsRepository);
     transactionsRepository.deleteById(transaction.getId());
     return new GenerateModelAndView().home(transactionsRepository);

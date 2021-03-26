@@ -2,10 +2,12 @@ package br.com.midhatdrops.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.UserRepository;
+import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
 public class FormTransaction {
 
@@ -26,12 +28,13 @@ public class FormTransaction {
     this.date = LocalDateTime.now();
   }
 
-  public Transaction convert(UserRepository userRepository, Long id) {
-    User user = userRepository.getOne(id);
+  public Transaction convert(UserRepository userRepository, Long id) throws IdNotFoundException {
+    Optional<User> user = userRepository.findById(id);
+    if (!user.isPresent())
+      throw new IdNotFoundException("User id not found!");
     // BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     // String encode = bcrypt.encode(this.adress);
-    Transaction transaction = new Transaction(this.value, this.adress, user);
-    return transaction;
+    return new Transaction(this.value, this.adress, user.get());
 
   }
 

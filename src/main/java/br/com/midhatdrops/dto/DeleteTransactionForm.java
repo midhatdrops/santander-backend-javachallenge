@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import javassist.NotFoundException;
+import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
-public class DeleteTransactionForm {
+public class DeleteTransactionForm implements Form {
 
   private Long id;
 
@@ -23,10 +23,10 @@ public class DeleteTransactionForm {
     this.id = id;
   }
 
-  public Transaction convert(TransactionsRepository repository) throws NotFoundException {
+  public Transaction convert(TransactionsRepository repository) throws IdNotFoundException {
     Optional<Transaction> optional = repository.findById(this.id);
     if (!optional.isPresent()) {
-      throw new NotFoundException("Not found");
+      throw new IdNotFoundException("Id Not found");
     }
     return optional.get();
 
