@@ -1,5 +1,6 @@
 package br.com.midhatdrops.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,12 +20,29 @@ public class User {
   private String adress;
   private String cardNumber;
   private String cardPassword;
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-  private List<Transaction> transactions;
+  private BigDecimal saldo;
+
+  @Deprecated
+
+  public BigDecimal getSaldo() {
+    return this.saldo;
+  }
+
+  public void setSaldo(BigDecimal saldo) {
+    this.saldo = saldo;
+  }
 
   @Deprecated
   public User() {
     // deprecated
+  }
+
+  public User(String name, String adress, String cardNumber, String cardPassword, BigDecimal saldo) {
+    this.name = name;
+    this.adress = adress;
+    this.cardNumber = cardNumber;
+    this.cardPassword = cardPassword;
+    this.saldo = saldo;
   }
 
   public Long getId() {
@@ -65,14 +83,6 @@ public class User {
 
   public void setCardPassword(String cardPassword) {
     this.cardPassword = cardPassword;
-  }
-
-  public List<Transaction> getTransactions() {
-    return this.transactions;
-  }
-
-  public void setTransactions(List<Transaction> transactions) {
-    this.transactions = transactions;
   }
 
 }

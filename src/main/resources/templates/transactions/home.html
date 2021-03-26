@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="~{head::head('Transactions')}"> </head>
+  <body class="bg-dark text-white"><div class="container"><div class="row">
+    <div class="col-12 d-flex flex-row align-items-center justify-content-between p-6 border-bottom-white-1">
+      <ul th:each="transaction : ${transactions}">
+        <li th:text="${transaction.adress}"></li>
+        <li th:text="${transaction.value}"></li>
+        <li th:text="${transaction.date}"></li>
+      </ul>
+    </div>
+  </div></body>
+</html>
