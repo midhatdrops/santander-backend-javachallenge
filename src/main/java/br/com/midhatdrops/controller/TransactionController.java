@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +18,7 @@ import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
 import br.com.midhatdrops.repository.UserRepository;
+import br.com.midhatdrops.utils.commands.GenerateModelAndView;
 import javassist.NotFoundException;
 
 @Controller
@@ -35,9 +35,8 @@ public class TransactionController {
   @GetMapping
   public ModelAndView home() {
     List<Transaction> list = transactionsRepository.findAll();
-    ModelAndView mvc = new ModelAndView("transactions/home");
-    mvc.addObject("transactions", list);
-    return mvc;
+    GenerateModelAndView gmv = new GenerateModelAndView();
+    return gmv.execute("transactions/home", "transactions", list);
   }
 
   @GetMapping("cadastro")
