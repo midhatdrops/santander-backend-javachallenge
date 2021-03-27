@@ -7,8 +7,8 @@
         <form
           th:object="${formTransaction}"
           class="form-group d-flex flex-column align-items-center"
-          th:action="@{/transactions}"
-          method="post"
+          th:action="@{/transactions/cadastro}"
+          method="POST"
         >
           <label class="form-label" for="userId">Usuário</label>
           <input
@@ -28,10 +28,10 @@
             th:errorclass="is-invalid"
           />
           <div class="invalid-feedback" th:errors="*{adress}"></div>
-          <label class="form-label" for="adress">Valor</label>
+          <label class="form-label" for="value">Value</label>
           <input
             class="form-control"
-            id="adress"
+            id="value"
             th:field="*{value}"
             placeholder="Digite o valor da transação"
             th:errorclass="is-invalid"

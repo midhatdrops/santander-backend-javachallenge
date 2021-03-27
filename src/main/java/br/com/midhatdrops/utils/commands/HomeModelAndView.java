@@ -18,11 +18,16 @@ public class HomeModelAndView {
       Page<Transaction> list = new DTOService().list(transactionsRepository, page);
       ModelAndView mvc = new ModelAndView("transactions/home");
       mvc.addObject("transactions", list);
+      mvc.addObject("prevPage", page - 1);
+      mvc.addObject("nextPage", page + 1);
       return mvc;
     }
     Page<Transaction> list = new DTOService().list(transactionsRepository, 0);
     ModelAndView mvc = new ModelAndView("transactions/home");
     mvc.addObject("transactions", list);
+    mvc.addObject("page", 0);
+    mvc.addObject("prevPage", -1);
+    mvc.addObject("nextPage", 1);
     return mvc;
   }
 

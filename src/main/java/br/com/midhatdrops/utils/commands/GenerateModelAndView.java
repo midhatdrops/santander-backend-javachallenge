@@ -2,6 +2,8 @@ package br.com.midhatdrops.utils.commands;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,8 +18,8 @@ public class GenerateModelAndView {
     return new HomeModelAndView().execute(transactionsRepository, page);
   }
 
-  public ModelAndView newTransaction(FormTransaction transaction, BindingResult result) {
-    return new NewModelAndView().execute(transaction, result);
+  public ModelAndView newTransaction(@Valid FormTransaction transaction) {
+    return new NewModelAndView().execute(transaction);
   }
 
   public ModelAndView changeTransaction(ChangeTransactionForm transaction, Long id,

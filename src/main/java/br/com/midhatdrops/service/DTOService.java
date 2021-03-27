@@ -1,12 +1,12 @@
 package br.com.midhatdrops.service;
 
-import java.util.List;
+import java.util.Arrays;
 
+import org.hibernate.mapping.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.midhatdrops.dto.ChangeTransactionForm;
@@ -30,23 +30,16 @@ public class DTOService {
   }
 
   public ModelAndView save(FormTransaction transaction, UserRepository userRepository,
-      TransactionsRepository transactionsRepository, BindingResult result) throws IdNotFoundException {
-    if (result.hasErrors()) {
-      ModelAndView mvc = new ModelAndView("transactions/cadastroForm");
-      List<ObjectError> allErrors = result.getAllErrors();
-      mvc.addObject("errors", allErrors);
-      System.out.println(allErrors.get(0).getDefaultMessage());
-      return mvc;
-    }
+      TransactionsRepository transactionsRepository) throws IdNotFoundException {
     User user = userRepository.getOne(transaction.getUserId());
     boolean validation = new SaldoValidation(user.getSaldo(), transaction.getValue()).validate();
-    System.out.println(validation);
     if (validation) {
       Transaction newTransaction = transaction.convert(userRepository, transaction.getUserId());
       transactionsRepository.save(newTransaction);
       return new GenerateModelAndView().home(transactionsRepository, 0);
     }
-    return new SaldoException("Saldo Insuficiente!").exception();
+
+    return new SaldoException("Saldo insuficiente!").exception();
 
   }
 

@@ -4,6 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.UserRepository;
@@ -11,9 +17,14 @@ import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
 public class FormTransaction {
 
+  @DateTimeFormat
   private LocalDateTime date;
+  @Min(value = 0, message = "Number must be positive ")
   private BigDecimal value;
+  @Min(value = 0)
   private Long userId;
+  @NotBlank
+  @NotEmpty
   private String adress;
 
   @Deprecated

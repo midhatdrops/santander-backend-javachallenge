@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,38 +34,38 @@ public class TransactionController {
   @Autowired
   private DTOService dtoService;
 
-  @org.springframework.cache.annotation.Cacheable(value = "homeList")
   @GetMapping()
-  public ModelAndView home() {
-    return new GenerateModelAndView().home(transactionsRepository, 0);
+  public String home() {
+    return "redirect:/transactions/0";
   }
 
   @GetMapping("/{page}")
-  @org.springframework.cache.annotation.Cacheable(value = "pageList")
   public ModelAndView homeWithPage(@PathVariable(value = "page", required = false) Integer page) {
     return new GenerateModelAndView().home(transactionsRepository, page);
   }
 
   @GetMapping("cadastro")
-  public ModelAndView cadastro(@Valid FormTransaction transaction, BindingResult result) {
-    return new GenerateModelAndView().newTransaction(transaction, result);
+  public ModelAndView cadastro(FormTransaction transaction, BindingResult result) {
+    return new GenerateModelAndView().newTransaction(transaction);
   }
 
-  @PostMapping
-  @CacheEvict(value = "pageList")
-  public ModelAndView newTransaction(FormTransaction transaction, BindingResult result) throws IdNotFoundException {
-    return new DTOService().save(transaction, userRepository, transactionsRepository, result);
+  @PostMapping("/cadastro")
+  public ModelAndView newTransaction(@Valid FormTransaction transaction) throws IdNotFoundException {
+    return new DTOService().save(transaction, userRepository, transactionsRepository);
   }
 
   @GetMapping("/change/{id}")
-  public ModelAndView changeTransactionForm(ChangeTransactionForm transaction, @PathVariable(value = "id") Long id) {
+  public ModelAndView changeTransactionForm(@Valid ChangeTransactionForm transaction,
+      @PathVariable(value = "id") Long id) {
     return new GenerateModelAndView().changeTransaction(transaction, id, transactionsRepository);
   }
 
   @PostMapping("/change")
-  @CacheEvict(value = "pageList")
-  public String changeTransaction(ChangeTransactionForm transaction, UserRepository userRepository)
-      throws IdNotFoundException {
+  public String changeTransaction(ChangeTransactionForm transaction, UserRepository userRepository,
+      BindingResult result) throws IdNotFoundException {
+    if (result.hasErrors()) {
+      return "/transactions/change/" + transaction.getId();
+    }
     dtoService.change(transactionsRepository, transaction);
     return "redirect:/transactions";
   }
@@ -78,8 +79,8 @@ public class TransactionController {
 
   @PostMapping("/delete")
   @CacheEvict(value = "pageList")
-  public ModelAndView deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws IdNotFoundException {
+  public String deleteTransaction(DeleteTransactionForm deleteTransactionForm) throws IdNotFoundException {
     dtoService.delete(deleteTransactionForm, transactionsRepository);
-    return new GenerateModelAndView().home(transactionsRepository, 0);
+    return "redirect:/transactions";
   }
 }

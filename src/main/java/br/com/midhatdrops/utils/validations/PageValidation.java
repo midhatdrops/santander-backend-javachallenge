@@ -9,6 +9,7 @@ public class PageValidation implements Validation {
 
   @Override
   public boolean validate() {
+
     if (page == null) {
       return false;
     }

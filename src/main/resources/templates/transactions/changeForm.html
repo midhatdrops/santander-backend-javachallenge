@@ -11,19 +11,19 @@
         method="POST"
         th:object="${changeTransactionForm}"
       >
-        <label class="form-control" for="Adress">Adress</label>
+        <label class="form-control" for="adress">Adress</label>
         <input
-          id="Adress"
+          th:id="adress"
           class="form-control mb-3"
-          th:placeholder="${transaction.adress}"
-          th:field="*{adress}"
+          th:value="${transaction.adress}"
+          th:name="adress"
         />
-        <label class="form-control" for="Value">Value</label>
+        <label class="form-control" for="value">Value</label>
         <input
-          id="Value"
+          th:id="value"
           class="form-control mb-3"
-          th:placeholder="${transaction.value}"
-          th:field="*{value}"
+          th:value="${transaction.value}"
+          th:name="value"
         />
         <input
           type="hidden"
