@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head th:replace="~{head::head('New User Form')}"> </head>
+  <body class="bg-dark">
+    <div class="container">
+      <form
+        th:action="@{/user/newUser}"
+        th:object="${newUserForm}"
+        method="POST"
+        class="card form-group"
+      >
+        <label for="name" class="form-label mt-2">Name:</label>
+        <input
+          type="text"
+          th:field="*{name}"
+          class="form-control"
+          placeholder="Insert your Full Name"
+        />
+        <label for="username" class="form-label mt-2">Username:</label>
+        <input
+          type="text"
+          th:field="*{username}"
+          class="form-control"
+          placeholder="Insert your username"
+        />
+        <label for="password" class="form-label mt-2">Password:</label>
+        <input
+          type="password"
+          th:field="*{password}"
+          class="form-control"
+          placeholder="Insert your password"
+        />
+        <label for="adress" class="form-label mt-2">Adress:</label>
+        <input
+          type="text"
+          th:field="*{adress}"
+          class="form-control"
+          placeholder="Insert your adress"
+        />
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <a th:href="@{/user/login}" class="text-white text-decoration-none"
+        >Already have an account? Login here.</a
+      >
+    </div>
+  </body>
+</html>

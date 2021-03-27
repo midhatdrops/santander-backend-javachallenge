@@ -22,7 +22,7 @@ import br.com.midhatdrops.utils.exceptions.SaldoException;
 import br.com.midhatdrops.utils.validations.SaldoValidation;
 
 @Service
-public class DTOService {
+public class DTOTransactionService {
   public void delete(DeleteTransactionForm deleteTransactionForm, TransactionsRepository transactionsRepository)
       throws IdNotFoundException {
     Transaction transaction = deleteTransactionForm.convert(transactionsRepository);

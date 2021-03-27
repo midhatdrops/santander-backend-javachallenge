@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
+import br.com.midhatdrops.repository.UserRepository;
 import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
 public class ChangeTransactionForm implements Form {
@@ -87,5 +88,10 @@ public class ChangeTransactionForm implements Form {
       throw new IdNotFoundException("Id not found!");
     return new Transaction(this.id, this.value, optional.get().getDate(), this.adress, optional.get().getUser());
 
+  }
+
+  @Override
+  public User convert(UserRepository repository) {
+    return null;
   }
 }

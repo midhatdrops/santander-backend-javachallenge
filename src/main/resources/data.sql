@@ -1,0 +1,1 @@
+insert into ROLES(id,name) values (1,'ROLE_USER');

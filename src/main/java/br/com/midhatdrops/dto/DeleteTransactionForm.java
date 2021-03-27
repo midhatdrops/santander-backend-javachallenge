@@ -3,7 +3,9 @@ package br.com.midhatdrops.dto;
 import java.util.Optional;
 
 import br.com.midhatdrops.models.Transaction;
+import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
+import br.com.midhatdrops.repository.UserRepository;
 import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
 public class DeleteTransactionForm implements Form {
@@ -30,6 +32,11 @@ public class DeleteTransactionForm implements Form {
     }
     return optional.get();
 
+  }
+
+  @Override
+  public User convert(UserRepository repository) {
+    return null;
   }
 
 }

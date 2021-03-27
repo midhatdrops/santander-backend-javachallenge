@@ -18,7 +18,7 @@ import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.dto.FormTransaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
 import br.com.midhatdrops.repository.UserRepository;
-import br.com.midhatdrops.service.DTOService;
+import br.com.midhatdrops.service.DTOTransactionService;
 import br.com.midhatdrops.utils.commands.GenerateModelAndView;
 import br.com.midhatdrops.utils.exceptions.IdNotFoundException;
 
@@ -32,7 +32,7 @@ public class TransactionController {
   private UserRepository userRepository;
 
   @Autowired
-  private DTOService dtoService;
+  private DTOTransactionService dtoService;
 
   @GetMapping()
   public String home() {
@@ -51,7 +51,7 @@ public class TransactionController {
 
   @PostMapping("/cadastro")
   public ModelAndView newTransaction(@Valid FormTransaction transaction) throws IdNotFoundException {
-    return new DTOService().save(transaction, userRepository, transactionsRepository);
+    return new DTOTransactionService().save(transaction, userRepository, transactionsRepository);
   }
 
   @GetMapping("/change/{id}")

@@ -43,8 +43,6 @@ public class FormTransaction {
     Optional<User> user = userRepository.findById(id);
     if (!user.isPresent())
       throw new IdNotFoundException("User id not found!");
-    // BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-    // String encode = bcrypt.encode(this.adress);
     return new Transaction(this.value, this.adress, user.get());
 
   }

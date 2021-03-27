@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head th:replace="~{head::head('New User Form')}"> </head>
+  <body class="bg-dark">
+    <div class="container">
+      <form th:action="@{/user}" method="post" class="card form-group">
+        <label for="username" class="form-label mt-2">Username:</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          class="form-control"
+          placeholder="Insert your username"
+        />
+        <label for="password" class="form-label mt-2">Password:</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          class="form-control"
+          placeholder="Insert your password"
+        />
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <a th:href="@{/user/newUser}" class="text-white text-decoration-none"
+        >Dosen't have an account? Register here.</a
+      >
+    </div>
+  </body>
+</html>
