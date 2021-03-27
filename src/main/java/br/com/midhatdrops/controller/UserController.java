@@ -1,10 +1,10 @@
 package br.com.midhatdrops.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,9 @@ public class UserController {
   @Autowired
   private DTOUserService dtoUserService;
 
+  @Autowired
+  private AuthenticationManager authManager;
+
   @GetMapping()
   @RequestMapping("user")
   public String login() {
@@ -41,9 +44,11 @@ public class UserController {
     if (result.hasErrors()) {
       return "user/register";
     }
-    dtoUserService.save(newUserForm, userRepository);
-    // request.login(newUser.getUsername(), newUser.getPassword());
-    return "redirect:/login";
+    User newUser = dtoUserService.save(newUserForm, userRepository);
+    UsernamePasswordAuthenticationToken loginData = new UsernamePasswordAuthenticationToken(newUser.getUsername(),
+        newUser.getPassword());
+    authManager.authenticate(loginData);
+    return "redirect:/transactions";
   }
 
 }
