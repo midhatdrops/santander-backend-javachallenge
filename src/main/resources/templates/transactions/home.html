@@ -5,11 +5,11 @@
     <div class="container d-flex align-items-center justify-content-center">
     <div class="card bg-dark col-12 border-0">
       <div class="card-header bg-secondary text-white p-6 fs-4 text-center d-flex align-items-center justify-content-between ">Transactions Entries
-        <button th:if="${prevPage >= 0}" class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/__${prevPage}__}">Prev Page</a></button>
-        <button class="btn btn-info"><a class="text-decoration-none text-white" th:href="@{/dashboard}">Dashboard</a></button>
-        <button class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/__${nextPage}__}">Next Page</a></button>
-        <button class="btn btn-warning"><a class="text-decoration-none text-white" th:href="@{/logout}">Logout</a></button>
-        <button class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/cadastro}">New</a></button>
+        <a class="text-decoration-none text-white" th:href="@{/transactions/__${prevPage}__}"><button th:if="${prevPage >= 0}" class="btn btn-primary">Prev Page</button></a>
+        <a class="text-decoration-none text-white" th:href="@{/dashboard}"><button class="btn btn-info  text-white">Dashboard</button></a>
+        <a class="text-decoration-none text-white" th:href="@{/transactions/__${nextPage}__}"><button class="btn btn-primary">Next Page</button></a>
+        <a class="text-decoration-none text-white" th:href="@{/logout}"><button class="btn btn-warning">Logout</button></a>
+        <a class="text-decoration-none text-white" th:href="@{/transactions/cadastro}"> <button class="btn btn-primary">New</button></a>
       </div>
       <div class="card-body mt-1">
       <div th:each="transaction : ${transactions}" class=" mt-2 card bg-dark border-1-solid-light mt-2 d-flex flex-column align-items-center justify-content-center">
@@ -22,8 +22,8 @@
         <div>User: <span th:text="${transaction.user.name}"></span></div>
         <div>User_Id: <span th:text="${transaction.user.id}"></span></div>
         <div class="d-flex flex-row justify-content-between mt-2 mb-2">
-        <button type="button"class="btn btn-warning me-4"><a class="text-white text-decoration-none" th:href="@{/transactions/change/__${transaction.id}__}">Modify</a></button>
-        <button class="btn btn-danger ms-4"><a class="text-white text-decoration-none" th:href="@{/transactions/delete/__${transaction.id}__}">Exclude</a></button>
+          <a class="text-white text-decoration-none" th:href="@{/transactions/change/__${transaction.id}__}"><button type="button"class="btn btn-warning me-4">Modify</button></a>
+          <a class="text-white text-decoration-none" th:href="@{/transactions/delete/__${transaction.id}__}"><button class="btn btn-danger ms-4">Exclude</button></a>
       </div>
       </div>
       </div>

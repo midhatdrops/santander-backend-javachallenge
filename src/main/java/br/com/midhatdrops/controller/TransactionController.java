@@ -3,6 +3,8 @@ package br.com.midhatdrops.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +61,6 @@ public class TransactionController {
   }
 
   @PostMapping("/change")
-
   public String changeTransaction(@Valid ChangeTransactionForm transaction, UserRepository userRepository,
       BindingResult result) throws IdNotFoundException {
     if (result.hasErrors()) {
