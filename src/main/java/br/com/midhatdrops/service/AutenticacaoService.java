@@ -17,9 +17,6 @@ public class AutenticacaoService implements UserDetailsService {
   @Autowired
   private UserRepository userRepository;
 
-  @Autowired
-  private DTOUserService dtoUserService;
-
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Optional<User> optional = userRepository.findByUsername(username);

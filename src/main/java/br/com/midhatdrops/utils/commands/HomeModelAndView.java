@@ -5,7 +5,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import br.com.midhatdrops.repository.UserRepository;
 import br.com.midhatdrops.service.DTOTransactionService;
 import br.com.midhatdrops.utils.validations.PageValidation;
 

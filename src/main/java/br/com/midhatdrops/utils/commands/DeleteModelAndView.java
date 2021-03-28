@@ -8,7 +8,6 @@ import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import br.com.midhatdrops.repository.UserRepository;
 
 public class DeleteModelAndView {
   public ModelAndView execute(Long id, DeleteTransactionForm deleteTransactionForm,

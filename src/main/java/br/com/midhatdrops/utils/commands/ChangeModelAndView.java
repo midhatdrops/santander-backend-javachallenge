@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.midhatdrops.dto.ChangeTransactionForm;
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import br.com.midhatdrops.repository.UserRepository;
 
 public class ChangeModelAndView {
   public ModelAndView execute(ChangeTransactionForm transaction, Long id,
