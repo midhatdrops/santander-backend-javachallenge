@@ -1,0 +1,19 @@
+<div
+  th:fragment="transaction(title)"
+  class="card bg-dark col-12 border-0"
+>
+  <div
+    class="card-header bg-secondary text-white p-6 fs-4 text-center d-flex align-items-center justify-content-between mb-3"
+  >
+    <div th:text="${title}"></div>
+    <button class="btn btn-info">
+      <a class="text-decoration-none text-white" th:href="@{/dashboard}"
+        >Dashboard</a
+      >
+    </button>
+    <button class="btn btn-warning">
+      <a class="text-decoration-none text-white" th:href="@{/logout}">Logout</a>
+    </button>
+    </button>
+  </div>
+</div>

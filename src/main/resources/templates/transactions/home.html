@@ -6,7 +6,9 @@
     <div class="card bg-dark col-12 border-0">
       <div class="card-header bg-secondary text-white p-6 fs-4 text-center d-flex align-items-center justify-content-between ">Transactions Entries
         <button th:if="${prevPage >= 0}" class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/__${prevPage}__}">Prev Page</a></button>
+        <button class="btn btn-info"><a class="text-decoration-none text-white" th:href="@{/dashboard}">Dashboard</a></button>
         <button class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/__${nextPage}__}">Next Page</a></button>
+        <button class="btn btn-warning"><a class="text-decoration-none text-white" th:href="@{/logout}">Logout</a></button>
         <button class="btn btn-primary"><a class="text-decoration-none text-white" th:href="@{/transactions/cadastro}">New</a></button>
       </div>
       <div class="card-body mt-1">
@@ -14,12 +16,13 @@
         <div class="card-body">
         <span class="text-center text-white fs-4 " >Transaction #<span th:text="${transaction.id}"></span></span>
         <div >Adress: <span th:text="${transaction.adress}"></span></div>
-        <div>Value: <span th:text="${transaction.value}"></span> R$</div>
+        <div>Value: <span th:text="${#numbers.formatCurrency(transaction.value)}"></span></div>
         <div>Date/Hours: <span th:text="${#strings.replace(transaction.date,'T',' / ')}"></span></div>
+        <div>Description: <span th:text="${transaction.description}"></span></div>
         <div>User: <span th:text="${transaction.user.name}"></span></div>
         <div>User_Id: <span th:text="${transaction.user.id}"></span></div>
         <div class="d-flex flex-row justify-content-between mt-2 mb-2">
-        <button type="button"class="btn btn-warning me-4"><a class="text-white text-decoration-none" th:href="@{/transactions/change/__${transaction.id}__}">Change</a></button>
+        <button type="button"class="btn btn-warning me-4"><a class="text-white text-decoration-none" th:href="@{/transactions/change/__${transaction.id}__}">Modify</a></button>
         <button class="btn btn-danger ms-4"><a class="text-white text-decoration-none" th:href="@{/transactions/delete/__${transaction.id}__}">Exclude</a></button>
       </div>
       </div>

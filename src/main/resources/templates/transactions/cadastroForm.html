@@ -2,6 +2,7 @@
 <html lang="en">
   <head th:replace="~{head :: head('Cadastro de Transações')}"> </head>
   <body class="container bg-dark text-white">
+    <div th:replace="~{transaction :: transaction('New Transaction')}"></div>
     <div class="row">
       <div class="col-12">
         <form
@@ -10,15 +11,6 @@
           th:action="@{/transactions/cadastro}"
           method="POST"
         >
-          <label class="form-label" for="userId">Usuário</label>
-          <input
-            class="form-control"
-            id="userId"
-            th:field="*{userId}"
-            placeholder="Digite o id do usuário"
-            th:errorclass="is-invalid"
-          />
-          <div class="invalid-feedback" th:errors="*{userId}"></div>
           <label class="form-label" for="adress">Endereço</label>
           <input
             class="form-control"
@@ -36,6 +28,9 @@
             placeholder="Digite o valor da transação"
             th:errorclass="is-invalid"
           />
+          <label class="form-label" for="userId">Description</label>
+          <textarea class="form-control" th:field="*{description}"></textarea>
+          <div class="invalid-feedback" th:errors="*{description}"></div>
           <div class="invalid-feedback" th:errors="*{value}"></div>
           <button type="submit" class="btn btn-primary mt-2">Enviar</button>
         </form>

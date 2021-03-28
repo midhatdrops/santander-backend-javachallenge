@@ -8,13 +8,14 @@ import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.models.Transaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
+import br.com.midhatdrops.repository.UserRepository;
 
 public class DeleteModelAndView {
   public ModelAndView execute(Long id, DeleteTransactionForm deleteTransactionForm,
-      TransactionsRepository transactionsRepository) {
+      TransactionsRepository transactionsRepository, UserRepository userRepository) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent())
-      new GenerateModelAndView().home(transactionsRepository, 0);
+      new GenerateModelAndView().home(transactionsRepository, 0, userRepository);
     User user = optional.get().getUser();
     ModelAndView mvc = new ModelAndView("transactions/deleteForm");
     mvc.addObject("transaction", optional.get());

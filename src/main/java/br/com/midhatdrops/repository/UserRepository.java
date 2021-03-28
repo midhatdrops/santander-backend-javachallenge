@@ -9,5 +9,5 @@ import br.com.midhatdrops.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
   public User findByName(String name);
 
-  public Optional<User> findByUsername(String username);
+  Optional<User> findByUsername(String username);
 }

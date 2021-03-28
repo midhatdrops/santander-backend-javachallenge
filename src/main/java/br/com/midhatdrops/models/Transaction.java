@@ -24,16 +24,19 @@ public class Transaction {
   @ManyToOne(fetch = FetchType.EAGER)
   private User user;
 
+  private String description;
+
   @Deprecated
   public Transaction() {
     // deprecated
   }
 
-  public Transaction(BigDecimal value, String adress, User user) {
+  public Transaction(BigDecimal value, String adress, User user, String description) {
     this.value = value;
     this.adress = adress;
     this.user = user;
     this.date = LocalDateTime.now();
+    this.description = description;
   }
 
   public Transaction(Long id, BigDecimal value, LocalDateTime date, String adress, User user) {
@@ -82,6 +85,14 @@ public class Transaction {
 
   public void setAdress(String adress) {
     this.adress = adress;
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 }

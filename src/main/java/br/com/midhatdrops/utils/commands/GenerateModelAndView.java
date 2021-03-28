@@ -11,12 +11,12 @@ import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.dto.FormTransaction;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
-import br.com.midhatdrops.service.AutenticacaoService;
+import br.com.midhatdrops.repository.UserRepository;
 
 public class GenerateModelAndView {
-  public ModelAndView home(TransactionsRepository transactionsRepository, Integer page) {
+  public ModelAndView home(TransactionsRepository transactionsRepository, Integer page, UserRepository userRepository) {
 
-    return new HomeModelAndView().execute(transactionsRepository, page);
+    return new HomeModelAndView().execute(transactionsRepository, page, userRepository);
   }
 
   public ModelAndView newTransaction(@Valid FormTransaction transaction) {
@@ -24,13 +24,13 @@ public class GenerateModelAndView {
   }
 
   public ModelAndView changeTransaction(ChangeTransactionForm transaction, Long id,
-      TransactionsRepository transactionsRepository) {
-    return new ChangeModelAndView().execute(transaction, id, transactionsRepository);
+      TransactionsRepository transactionsRepository, UserRepository userRepository) {
+    return new ChangeModelAndView().execute(transaction, id, transactionsRepository, userRepository);
   }
 
   public ModelAndView deleteTransaction(DeleteTransactionForm deleteTransactionForm, Long id,
-      TransactionsRepository transactionsRepository) {
-    return new DeleteModelAndView().execute(id, deleteTransactionForm, transactionsRepository);
+      TransactionsRepository transactionsRepository, UserRepository userRepository) {
+    return new DeleteModelAndView().execute(id, deleteTransactionForm, transactionsRepository, userRepository);
   }
 
   public ModelAndView showException(List<String> error) {

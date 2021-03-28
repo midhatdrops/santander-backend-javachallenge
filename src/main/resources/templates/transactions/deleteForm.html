@@ -3,6 +3,9 @@
   <head th:replace="~{head::head('Formulário de Delete')}"></head>
   <body class="bg-dark text-white">
     <div class="container">
+      <div
+        th:replace="~{transaction :: transaction('Delete Transaction')}"
+      ></div>
       <form
         class="form-group"
         th:action="@{/transactions/delete}"

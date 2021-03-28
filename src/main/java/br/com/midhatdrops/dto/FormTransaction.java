@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -21,29 +22,30 @@ public class FormTransaction {
   private LocalDateTime date;
   @Min(value = 0, message = "Number must be positive ")
   private BigDecimal value;
-  @Min(value = 0)
-  private Long userId;
   @NotBlank
   @NotEmpty
   private String adress;
+  @NotBlank
+  @NotEmpty
+  private String description;
 
   @Deprecated
   public FormTransaction() {
     // deprecated
   }
 
-  public FormTransaction(Long userId, BigDecimal value, String adress) {
-    this.userId = userId;
+  public FormTransaction(BigDecimal value, String adress, String description) {
     this.value = value;
     this.adress = adress;
     this.date = LocalDateTime.now();
+    this.description = description;
   }
 
   public Transaction convert(UserRepository userRepository, Long id) throws IdNotFoundException {
-    Optional<User> user = userRepository.findById(id);
-    if (!user.isPresent())
+    Optional<User> optional = userRepository.findById(id);
+    if (!optional.isPresent())
       throw new IdNotFoundException("User id not found!");
-    return new Transaction(this.value, this.adress, user.get());
+    return new Transaction(this.value, this.adress, optional.get(), this.description);
 
   }
 
@@ -53,10 +55,6 @@ public class FormTransaction {
 
   public BigDecimal getValue() {
     return this.value;
-  }
-
-  public Long getUserId() {
-    return this.userId;
   }
 
   public String getAdress() {
@@ -71,12 +69,16 @@ public class FormTransaction {
     this.value = value;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
-  }
-
   public void setAdress(String adress) {
     this.adress = adress;
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 }

@@ -5,6 +5,9 @@
     class="bg-dark text-white d-flex flex-column align-items-center justify-content-center"
   >
     <div class="container mt-5">
+      <div
+        th:replace="~{transaction :: transaction('Modify Transaction')}"
+      ></div>
       <form
         class="form-group d-flex flex-column align-items-center"
         th:action="@{/transactions/change}"
@@ -37,7 +40,7 @@
           th:field="*{date}"
           readonly
         />
-        <button type="submit" class="btn btn-warning">Alterar</button>
+        <button type="submit" class="btn btn-warning">Modify</button>
       </form>
     </div>
   </body>

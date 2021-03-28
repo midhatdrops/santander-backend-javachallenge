@@ -41,7 +41,8 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/user/**").permitAll().anyRequest().authenticated()
 
-        .and().formLogin(form -> form.loginPage("/user").defaultSuccessUrl("/dashboard", true).permitAll());
+        .and().formLogin(form -> form.loginPage("/user").defaultSuccessUrl("/dashboard", true).permitAll())
+        .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/user")).csrf().disable();
   }
 
 }

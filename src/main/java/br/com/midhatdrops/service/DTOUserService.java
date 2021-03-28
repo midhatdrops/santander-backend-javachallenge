@@ -1,6 +1,8 @@
 package br.com.midhatdrops.service;
 
-import org.springframework.security.core.Authentication;
+import java.math.BigDecimal;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.midhatdrops.dto.NewUserForm;
@@ -15,8 +17,14 @@ public class DTOUserService {
     return userRepository.save(newUser);
   }
 
-  public User findWithValidation(Authentication authenticate) {
-    return (User) authenticate.getPrincipal();
+  public User findWithValidation(UserRepository userRepository) {
+    User authenticate = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return userRepository.getOne(authenticate.getId());
+
+  }
+
+  public void debit(BigDecimal value, User user) {
+    user.setSaldo(user.getSaldo().subtract(value));
   }
 
 }

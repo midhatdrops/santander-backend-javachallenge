@@ -55,8 +55,8 @@ public class UserController {
   }
 
   @GetMapping("/dashboard")
-  public ModelAndView dashboard(Authentication authenticate) {
-    User validatedUser = dtoUserService.findWithValidation(authenticate);
+  public ModelAndView dashboard() {
+    User validatedUser = dtoUserService.findWithValidation(userRepository);
     return new GenerateModelAndView().dashboard(validatedUser);
   }
 
