@@ -10,11 +10,11 @@ import br.com.midhatdrops.repository.TransactionsRepository;
 import br.com.midhatdrops.repository.UserRepository;
 
 public class ChangeModelAndView {
-  public ModelAndView execute(ChangeTransactionForm transaction, Long id, TransactionsRepository transactionsRepository,
-      UserRepository userRepository) {
+  public ModelAndView execute(ChangeTransactionForm transaction, Long id,
+      TransactionsRepository transactionsRepository) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent()) {
-      return new GenerateModelAndView().home(transactionsRepository, 0, userRepository);
+      return new GenerateModelAndView().home(transactionsRepository, 0);
     }
     ModelAndView mvc = new ModelAndView("transactions/changeForm");
     mvc.addObject("transaction", optional.get());

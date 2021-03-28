@@ -36,7 +36,6 @@ public class DTOTransactionService {
       Transaction newTransaction = transaction.convert(userRepository, user.getId());
       transactionsRepository.save(newTransaction);
       user.setSaldo(user.getSaldo().subtract(transaction.getValue()));
-      System.out.println(user);
       userRepository.save(user);
       return "redirect:/transactions";
     }
@@ -57,30 +56,7 @@ public class DTOTransactionService {
 
   }
 
-  public Page<Transaction> listByUser(TransactionsRepository transactionsRepository, Integer page,
-      UserRepository userRepository) {
-    // PageRequest pageRequest = PageRequest.of(page, 5);
-    // Page<Transaction> findAll = transactionsRepository.findAll(pageRequest);
-    // User authenticate = (User)
-    // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    // User user = userRepository.getOne(authenticate.getId());
-    // List<Transaction> collect = findAll.stream().filter(t ->
-    // t.getId().equals(user.getId()))
-    // .collect(Collectors.toList());
-    // System.out.println("debug");
-    // System.out.println(collect.size());
-    // return new PageImpl<>(collect);
-
-    // // User authenticate = (User)
-    // // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    // // Optional<User> optional =
-    // // userRepository.findByUsername(authenticate.getUsername());
-    // // User user = optional.get();
-    // // List<Transaction> list =
-    // transactionsRepository.findByIdEquals(user.getId());
-    // // list.forEach(l -> System.out.println(l.getValue()));
-    // // return new PageImpl<>(list);
-
+  public Page<Transaction> listByUser(TransactionsRepository transactionsRepository, Integer page) {
     PageRequest pageRequest = PageRequest.of(page, 5);
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     List<Transaction> list = transactionsRepository.findAllUserTransactions(user.getId(), pageRequest);

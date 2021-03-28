@@ -11,18 +11,17 @@ import br.com.midhatdrops.utils.validations.PageValidation;
 
 public class HomeModelAndView {
 
-  public ModelAndView execute(TransactionsRepository transactionsRepository, Integer page,
-      UserRepository userRepository) {
+  public ModelAndView execute(TransactionsRepository transactionsRepository, Integer page) {
     boolean validation = new PageValidation(page).validate();
     if (validation) {
-      Page<Transaction> list = new DTOTransactionService().listByUser(transactionsRepository, page, userRepository);
+      Page<Transaction> list = new DTOTransactionService().listByUser(transactionsRepository, page);
       ModelAndView mvc = new ModelAndView("transactions/home");
       mvc.addObject("transactions", list);
       mvc.addObject("prevPage", page - 1);
       mvc.addObject("nextPage", page + 1);
       return mvc;
     }
-    Page<Transaction> list = new DTOTransactionService().listByUser(transactionsRepository, 0, userRepository);
+    Page<Transaction> list = new DTOTransactionService().listByUser(transactionsRepository, 0);
     ModelAndView mvc = new ModelAndView("transactions/home");
     mvc.addObject("transactions", list);
     mvc.addObject("page", 0);

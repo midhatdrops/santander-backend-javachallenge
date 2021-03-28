@@ -12,10 +12,10 @@ import br.com.midhatdrops.repository.UserRepository;
 
 public class DeleteModelAndView {
   public ModelAndView execute(Long id, DeleteTransactionForm deleteTransactionForm,
-      TransactionsRepository transactionsRepository, UserRepository userRepository) {
+      TransactionsRepository transactionsRepository) {
     Optional<Transaction> optional = transactionsRepository.findById(id);
     if (!optional.isPresent())
-      new GenerateModelAndView().home(transactionsRepository, 0, userRepository);
+      new GenerateModelAndView().home(transactionsRepository, 0);
     User user = optional.get().getUser();
     ModelAndView mvc = new ModelAndView("transactions/deleteForm");
     mvc.addObject("transaction", optional.get());

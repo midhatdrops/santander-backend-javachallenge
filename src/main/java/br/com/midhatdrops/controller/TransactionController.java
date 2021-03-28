@@ -40,7 +40,7 @@ public class TransactionController {
 
   @GetMapping("/{page}")
   public ModelAndView homeWithPage(@PathVariable(value = "page", required = false) Integer page) {
-    return new GenerateModelAndView().home(transactionsRepository, page, userRepository);
+    return new GenerateModelAndView().home(transactionsRepository, page);
   }
 
   @GetMapping("cadastro")
@@ -55,7 +55,7 @@ public class TransactionController {
 
   @GetMapping("/change/{id}")
   public ModelAndView changeTransactionForm(ChangeTransactionForm transaction, @PathVariable(value = "id") Long id) {
-    return new GenerateModelAndView().changeTransaction(transaction, id, transactionsRepository, userRepository);
+    return new GenerateModelAndView().changeTransaction(transaction, id, transactionsRepository);
   }
 
   @PostMapping("/change")
@@ -73,8 +73,7 @@ public class TransactionController {
   public ModelAndView deleteTransactionForm(@PathVariable(value = "id") Long id,
       DeleteTransactionForm deleteTransactionForm) {
 
-    return new GenerateModelAndView().deleteTransaction(deleteTransactionForm, id, transactionsRepository,
-        userRepository);
+    return new GenerateModelAndView().deleteTransaction(deleteTransactionForm, id, transactionsRepository);
   }
 
   @PostMapping("/delete")
