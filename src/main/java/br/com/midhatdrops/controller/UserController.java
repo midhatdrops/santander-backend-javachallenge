@@ -5,16 +5,19 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.midhatdrops.dto.NewUserForm;
 import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.UserRepository;
 import br.com.midhatdrops.service.DTOUserService;
+import br.com.midhatdrops.utils.commands.GenerateModelAndView;
 
 @Controller
 public class UserController {
@@ -49,6 +52,12 @@ public class UserController {
         newUser.getPassword());
     authManager.authenticate(loginData);
     return "redirect:/transactions";
+  }
+
+  @GetMapping("/dashboard")
+  public ModelAndView dashboard(Authentication authenticate) {
+    User validatedUser = dtoUserService.findWithValidation(authenticate);
+    return new GenerateModelAndView().dashboard(validatedUser);
   }
 
 }

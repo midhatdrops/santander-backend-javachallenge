@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.midhatdrops.dto.ChangeTransactionForm;
 import br.com.midhatdrops.dto.DeleteTransactionForm;
 import br.com.midhatdrops.dto.FormTransaction;
+import br.com.midhatdrops.models.User;
 import br.com.midhatdrops.repository.TransactionsRepository;
+import br.com.midhatdrops.service.AutenticacaoService;
 
 public class GenerateModelAndView {
   public ModelAndView home(TransactionsRepository transactionsRepository, Integer page) {
@@ -34,5 +35,9 @@ public class GenerateModelAndView {
 
   public ModelAndView showException(List<String> error) {
     return new ExceptionModelAndView().execute(error);
+  }
+
+  public ModelAndView dashboard(User user) {
+    return new DashboardModelAndView().execute(user);
   }
 }

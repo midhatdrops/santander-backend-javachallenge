@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="~{head::head('Dashboard')}"> </head>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="card rounded">
+        <div
+          class="card-header bg-secondary text-white p-6 fs-4 text-center d-flex align-items-center justify-content-between"
+        >
+          DashBoard
+          <a th:href="@{/transactions}"
+            ><button class="btn btn-primary">Transactions</button></a
+          >
+        </div>
+        <div
+          class="card-body bg-light border-1-solid-dark container d-flex flex-column align-items-center"
+        >
+          <div class="row">
+            <div
+              th:text="${user.name}"
+              class="fs-3 text-dark bg-info rounded"
+            ></div>
+          </div>
+          <div class="row mt-2">
+            <div class="fs-4 text-dark">
+              Adress: <span th:text="${user.adress}"></span>
+            </div>
+            <div class="fs-4 text-dark">
+              Balance:
+              <span th:text="${#numbers.formatCurrency(user.saldo)}"> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
